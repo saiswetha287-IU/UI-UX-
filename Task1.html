@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - To-Do App</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #eef2f4;
+            color: #263238;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            padding: 25px;
+            background: white;
+            border-radius: 16px;
+        }
+
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #d9e0e4;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 8px;
+            background: #566873;
+            color: white;
+            cursor: pointer;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin: 8px 0;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .screen { display: none; }
+        .screen.active { display: block; }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>TaskFlow</h1>
+
+    <!-- Screen 1: Home -->
+    <section id="home" class="screen active">
+        <h2>My Tasks</h2>
+        <input id="search" placeholder="Search tasks">
+
+        <div id="taskList"></div>
+
+        <button onclick="showScreen('form')">
+            + Add Task
+        </button>
+        <button onclick="showScreen('profile')">
+            Profile
+        </button>
+    </section>
+
+    <!-- Screen 2: Task Details -->
+    <section id="details" class="screen">
+        <h2>Task Details</h2>
+        <div id="taskDetails"></div>
+        <button onclick="editTask()">Edit</button>
+        <button onclick="completeTask()">Complete</button>
+        <button onclick="showScreen('home')">Back</button>
+    </section>
+
+    <!-- Screen 3: Add/Edit Task -->
+    <section id="form" class="screen">
+        <h2>Add / Edit Task</h2>
+
+        <input id="title" placeholder="Task title" required>
+        <textarea id="description"
+                  placeholder="Task description"></textarea>
+        <input id="dueDate" type="date">
+
+        <select id="category">
+            <option>Personal</option>
+            <option>Work</option>
+            <option>Study</option>
+        </select>
+
+        <select id="priority">
+            <option>Low</option>
+            <option selected>Medium</option>
+            <option>High</option>
+        </select>
+
+        <button onclick="saveTask()">Save Task</button>
+        <button onclick="showScreen('home')">Cancel</button>
+    </section>
+
+    <!-- Screen 4: Confirmation -->
+    <section id="confirmation" class="screen">
+        <h2>✓ Task Saved!</h2>
+        <p id="message">Your task was saved successfully.</p>
+        <button onclick="showScreen('home')">
+            View My Tasks
+        </button>
+    </section>
+
+    <!-- Screen 5: Profile / Settings -->
+    <section id="profile" class="screen">
+        <h2>Profile & Settings</h2>
+        <p>User: Harshitha</p>
+        <p>Manage your task preferences.</p>
+        <button onclick="showScreen('home')">Home</button>
+    </section>
+</div>
+
+<script>
+    let tasks = [];
+    let selected = -1;
+
+    function showScreen(id) {
+        document.querySelectorAll('.screen')
+            .forEach(s => s.classList.remove('active'));
+
+        document.getElementById(id)
+            .classList.add('active');
+    }
+
+    function renderTasks() {
+        const query = document.getElementById('search')
+            .value.toLowerCase();
+
+        const list = document.getElementById('taskList');
+        list.innerHTML = '';
+
+        tasks.forEach((task, index) => {
+            if (!task.title.toLowerCase().includes(query)) return;
+
+            const row = document.createElement('div');
+            row.className = 'task';
+
+            const name = document.createElement('span');
+            name.textContent = task.title;
+            if (task.completed) name.className = 'completed';
+
+            const view = document.createElement('button');
+            view.textContent = 'View';
+            view.onclick = () => {
+                selected = index;
+                document.getElementById('taskDetails')
+                    .textContent =
+                    task.title + ' — ' + task.description +
+                    ' | ' + task.category +
+                    ' | ' + task.priority +
+                    ' | Due: ' + (task.date || 'Not set');
+
+                showScreen('details');
+            };
+
+            row.append(name, view);
+            list.appendChild(row);
+        });
+    }
+
+    function saveTask() {
+        const title = document.getElementById('title')
+            .value.trim();
+
+        if (!title) {
+            alert('Please enter a task title.');
+            return;
+        }
+
+        const task = {
+            title,
+            description: document.getElementById('description').value,
+            date: document.getElementById('dueDate').value,
+            category: document.getElementById('category').value,
+            priority: document.getElementById('priority').value,
+            completed: false
+        };
+
+        if (selected >= 0) {
+            task.completed = tasks[selected].completed;
+            tasks[selected] = task;
+        } else {
+            tasks.push(task);
+        }
+
+        selected = -1;
+        document.getElementById('message').textContent =
+            'Task saved successfully!';
+
+        document.getElementById('title').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('dueDate').value = '';
+
+        renderTasks();
+        showScreen('confirmation');
+    }
+
+    function editTask() {
+        const task = tasks[selected];
+        if (!task) return;
+
+        document.getElementById('title').value = task.title;
+        document.getElementById('description').value =
+            task.description;
+        document.getElementById('dueDate').value = task.date;
+        document.getElementById('category').value = task.category;
+        document.getElementById('priority').value = task.priority;
+
+        showScreen('form');
+    }
+
+    function completeTask() {
+        if (selected < 0 || !tasks[selected]) return;
+
+        tasks[selected].completed = true;
+        document.getElementById('message').textContent =
+            'Task completed successfully!';
+
+        renderTasks();
+        showScreen('confirmation');
+    }
+
+    document.getElementById('search')
+        .addEventListener('input', renderTasks);
+
+    renderTasks();
+</script>
+</body>
+</html>

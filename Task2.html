@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finora Landing Page</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f6ff;
+            color: #22223b;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            color: #635bff;
+            margin: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin-left: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+        }
+
+        .hero span {
+            color: #635bff;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #635bff;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        /* Features */
+        .features {
+            padding: 50px 8%;
+            text-align: center;
+            background: white;
+        }
+
+        .feature-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: #f5f6ff;
+            padding: 25px;
+            border-radius: 10px;
+            width: 220px;
+        }
+
+        .card h3 {
+            color: #635bff;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 50px 8%;
+            text-align: center;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 20px;
+            margin: 15px auto;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        /* Call to Action */
+        .cta {
+            text-align: center;
+            padding: 50px 20px;
+            background: #635bff;
+            color: white;
+        }
+
+        .cta .btn {
+            background: white;
+            color: #635bff;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 20px;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            nav a {
+                margin-left: 8px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <h2>Finora</h2>
+        <div>
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#reviews">Reviews</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>Manage Your Money <span>Smarter</span></h1>
+        <p>Track expenses, save money, and achieve your financial goals.</p>
+        <a href="#features" class="btn">Get Started</a>
+    </section>
+
+    <section class="features" id="features">
+        <h2>Our Features</h2>
+
+        <div class="feature-container">
+            <div class="card">
+                <h3>Expense Tracking</h3>
+                <p>Track your daily spending easily.</p>
+            </div>
+
+            <div class="card">
+                <h3>Smart Savings</h3>
+                <p>Set goals and grow your savings.</p>
+            </div>
+
+            <div class="card">
+                <h3>Budget Planning</h3>
+                <p>Plan your monthly budget effectively.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="reviews">
+        <h2>What Our Users Say</h2>
+
+        <div class="testimonial">
+            <p>"Finora helps me manage my expenses easily."</p>
+            <strong>- Ananya, Student</strong>
+        </div>
+
+        <div class="testimonial">
+            <p>"A simple and useful way to plan my savings."</p>
+            <strong>- Rahul, Professional</strong>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Start Your Financial Journey Today!</h2>
+        <p>Take control of your money with Finora.</p>
+        <a href="mailto:hello@example.com" class="btn">Join Us</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Finora. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
