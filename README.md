@@ -19,9 +19,9 @@ This repository brings together all three tasks completed during the internship.
 
 | Task | Description |
 |---|---|
-| Task 1 | [Add task title and a short description] |
-| Task 2 | [Add task title and a short description] |
-| Task 3 | [Add task title and a short description] |
+| Task 1 | Wireframe Design for a Mobile App |
+| Task 2 | Landing Page UI Design |
+| Task 3 | User Persona & journey Mapping |
 
 Each task is organized in its respective folder for easier navigation.
 
